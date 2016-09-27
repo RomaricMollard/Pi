@@ -21,9 +21,19 @@
 <body align="center">
 
 <div id="loader">
+  <p style="    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    height: 56px;
+    z-index: 100;
+    font-size: 18px;"></p>
+  <div id="loader_bar"></div>
 </div>
 
-<div onmousedown="returnToMenu()" ontouchstart="returnToMenu()" style="font-weight: bolder;line-height: 45px; border-bottom: 1px solid #DDD; font-size: 30px; color: #000;">
+<div onmousedown="returnToMenu()" ontouchstart="returnToMenu()" style="font-weight: 100;line-height: 45px; border-bottom: 1px solid #DDD; font-size: 30px; color: #000;">
   Pi.
 </div>
 <div id="viewer" frameborder="0">
@@ -73,7 +83,7 @@ function init(){
 				numbers[client.value] = {"name":name,"digits":digits, "sort":sort, "img":img,"sentences":sentences};
 			}
 			loadState += 100/files.length; //Update percentage
-			updateLoad();
+      setTimeout(updateLoad,400);
 		}
 		client.send();
 	});
@@ -81,7 +91,8 @@ function init(){
 
 //Loading
 function updateLoad(){
-	$("#loader").html(Math.min(100,loadState)+"%");
+	$("#loader p").html(Math.min(100,loadState)+"%");
+  $("#loader_bar").css({"height":Math.min(100,loadState)+"%"});
 	if(loadState>=100){
 		finishInit();
 		$("#loader").css({"opacity":"0"});

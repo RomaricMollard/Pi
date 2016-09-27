@@ -12,7 +12,7 @@
     padding-top: 40px;
     top: 0px;">
 
-<div style="height: 20px; line-height: 20px; border-bottom: 1px solid #DDD; margin-bottom: 10px;">
+<div style="height: 20px; line-height: 20px; margin-bottom: 10px;">
 <div id="sentence" style="font-size: 12px; color: #000;"></div>
 <div id="nfo" style="font-size: 12px; color: #000;display:none;"></div>
 </div>
@@ -40,10 +40,16 @@
       data = "It start with "+numbers[currentNumber].digits.substr(0,3)+"...";
     }else{
       if(isfirsttry){
-        data = "Already <b>"+cursor+"</b> One Shot over "+me[currentNumber].oneshotrecord+" !";
+        data = "Already <b>"+cursor+"</b> *One Shot* over "+me[currentNumber].oneshotrecord+" !";
       }else{
         data = "Already <b>"+cursor+"</b> digits over "+me[currentNumber].record+" !";
       }
+    }
+    if(cursor==me[currentNumber].oneshotrecord){
+      data = "New record One Shot "+cursor+" !";
+    }
+    if(cursor==me[currentNumber].record){
+      data = "New record "+cursor+" !";
     }
     $("#nfo").html(data);
   }
