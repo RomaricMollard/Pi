@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<head>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="apple-touch-icon" href="apple-touch-icon-57x57-precomposed.png">
+<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76-precomposed.png">
+<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120-precomposed.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152-precomposed.png">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Pi.</title>
+<script src="jquery/jquery-1.9.1.js" type="text/javascript"></script>
+<script src="jquery/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+<script src="jquery/jquery.effects.core.js"></script>
+<script>
+
+function stopScrolling( touchEvent ) { touchEvent.preventDefault(); }
+document.addEventListener( 'touchstart' , stopScrolling , false );
+document.addEventListener( 'touchmove' , stopScrolling , false );
+
+function pttf(n){
+	txt=['']
+	if(n=='Pi'){
+		txt = ["Pour calculer le périmètre d'un cercle :<br>pi fois le diamètre.", "Pi, constante d'Archimède<br>ou encore nombre de Ludoph.", "Vous pouvez m'appeler au 314 159 2653 !"];
+	}
+	if(n=='e'){
+		txt = ["La dérivée de l'exponentielle<br>est l'exponentielle.", "e ou constante de Neper, base des logarithmes naturels."];
+	}
+	if(n=='Phi'){
+		txt = ["Le nombre d'or noté Phi est utilisé<br>dans l'architecture.", "Phi = (1 + sqrt(5))/2"];
+	}
+	if(n=='rand'){
+		txt = ["Aléatoire proviens du grec aleos<br>« inconscient, égaré »","Vous avez 1 chance sur 10<br>que le premier chiffre soit un 0.","Vous avez 1 chance sur 100<br>que les deux premiers chiffres forment 42."];
+	}
+	if(n=='Sqrt(2)'){
+		txt = ["L'hypoténuse d'un triangle rectangle de cotés 1,<br>vaut racine carré de deux.", "Les feuilles de papier A4<br>ont une proportion longueur/largeur égale à sqrt(2)."];
+	}
+	i = Math.floor(Math.random() * txt.length);
+	return txt[i];
+}
+
+var list = '';
+
+window.onload = function() {
+	var number = sessionStorage.getItem('number');
+		document.getElementById('pttf').innerHTML = pttf(number);
+
+	if(number!='rand'){
+	
+	var client = new XMLHttpRequest();
+client.open('GET', number+'.txt');
+client.onreadystatechange = function() {
+list += (client.responseText);
+}
+client.send();
+
+	}else{
+		for(var i = 0; i < 100001; i++){
+			list += Math.floor(Math.random() * 10);
+		}
+		number='Aléatoire';
+	}
+
+	list = list.toString().split('');
+	
+	
+	
+	window.setTimeout(function(){
+		micro = list[0] + '.' + list[1] + list[2];
+		document.getElementById('txt').innerHTML = number + ', ' + micro + ' environ';
+		},3000);
+		
+	sessionStorage.computer=1;
+	$( '.button' ).animate({ opacity: 0.3 }, 100);
+
+	window.setTimeout(function(){
+		sessionStorage.voulu=list.toString();
+		sessionStorage.computer=0;
+		$( '.button' ).animate({ opacity: 1 }, 100);
+		},1000);
+		
+}
+
+function jouer(n,max,list){
+	if(max<=0){
+		max=1;
+	}
+	if(n<max){
+		ralenti = 5*(max-n);
+		if(ralenti>270){
+			ralenti=270;
+		}
+		color = 'DDDDDD';
+		if(n==max-1){
+			color='88FF88';
+			ralenti=-700;
+		}
+		sessionStorage.voulu+=list[n].toString();
+	$( '.'+list[n].toString() ).animate({ backgroundColor: '#'+color, opacity: 1 }, 100);
+	playsound(list[n].toString());
+
+	window.setTimeout(function(){$( '.'+list[n].toString() ).animate({ backgroundColor: '#fafafa', opacity: 0.3 }, 100);jouer(n+1,max,list);},300-ralenti);
+	}else{
+		$( '.button' ).animate({ opacity: 1 }, 400);
+		sessionStorage.list='';
+		sessionStorage.computer=0;
+	}
+}
+
+</script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body id="body" style='text-align:left;'>
+<div id="title" ontouchstart="window.location='index.html';" onclick="window.location='index.html';"><br>
+<b>Pi.</b></div>
+<div id="header"><br>
+<table style="color:#888;font-size:18px;width:100%;padding:0px 5px 0px 5px">
+<tr>
+<td align="center" id='txt'>
+<p style="font-size:12px; line-height:14px;" id='pttf'></p>
+</td>
+</tr></table>
+
+</div>
+<div id="menu" align="center">
+<table width='70%' >
+<tr><td>
+<div id="button" class="button 1" >
+1
+</div>
+</td>
+<td>
+<div id="button" class="button 2" >
+2
+</div>
+</td>
+<td>
+<div id="button" class="button 3" >
+3
+</div>
+</td>
+</tr>
+<tr><td>
+<div id="button" class="button 4" >
+4
+</div>
+</td>
+<td>
+<div id="button" class="button 5" >
+5
+</div>
+</td>
+<td>
+<div id="button" class="button 6" >
+6
+</div>
+</td>
+</tr>
+<tr><td>
+<div id="button" class="button 7" >
+7
+</div>
+</td>
+<td>
+<div id="button" class="button 8" >
+8
+</div>
+</td>
+<td>
+<div id="button" class="button 9" >
+9
+</div>
+</td>
+</tr>
+<tr><td>
+</td>
+<td>
+<div id="button" class="button 0" >
+0
+</div>
+</td>
+<td>
+</td>
+</tr>
+</table>
+<br>
+
+</div>
+
+</body>
+</html>
+<script>
+
+sessionStorage.list='';
+sessionStorage.deb=1;
+sessionStorage.computer=0;
+
+
+
+$('.button').on('touchstart mousedown', function(ev){
+	
+	
+	if(sessionStorage.getItem('computer')==0){
+	if(this.getAttribute('class').split(' ')[1]!=sessionStorage.getItem('voulu')[sessionStorage.getItem('list').length]){
+					
+			
+			try{
+				snd1.play();
+				snd2.play();
+				snd3.play();
+				snd4.play();
+				snd5.play();
+				snd6.play();
+				snd7.play();
+				snd8.play();
+				snd9.play();
+				snd0.play();
+			}catch(err){ var z = 0; }		
+			
+			sessionStorage.computer=1;
+			$(this).animate({backgroundColor: '#ffAAAA'},200);
+			$(this).animate({backgroundColor: '#fafafa'},200);
+			
+			$('.'+sessionStorage.getItem('voulu').split('')[sessionStorage.getItem('list').length]).animate({backgroundColor: '#AAffAA'},100);
+			$('.'+sessionStorage.getItem('voulu').split('')[sessionStorage.getItem('list').length]).animate({backgroundColor: '#fafafa'},100);
+			$('.'+sessionStorage.getItem('voulu').split('')[sessionStorage.getItem('list').length]).animate({backgroundColor: '#AAffAA'},100);
+			$('.'+sessionStorage.getItem('voulu').split('')[sessionStorage.getItem('list').length]).animate({backgroundColor: '#fafafa'},100);
+			$('.'+sessionStorage.getItem('voulu').split('')[sessionStorage.getItem('list').length]).animate({backgroundColor: '#AAffAA'},100);
+			$('.'+sessionStorage.getItem('voulu').split('')[sessionStorage.getItem('list').length]).animate({backgroundColor: '#fafafa'},100);
+			
+		if(sessionStorage.getItem('deb')==0){
+			
+			nb = sessionStorage.getItem('voulu').length;
+			sessionStorage.voulu = '';
+			$( '.button' ).animate({ opacity: 0.3 }, 100);
+			window.setTimeout(function(){jouer(0,nb,list)},800);
+			
+		}else{
+			
+			number = sessionStorage.getItem('number');
+			micro = list[0] + '.' + list[1] + list[2];
+			if(sessionStorage.getItem('list').length<5){
+				document.getElementById('txt').innerHTML = number + ', ' + micro + ' environ';
+			}else{
+				document.getElementById('txt').innerHTML = micro + ' + ' + (sessionStorage.getItem('list').length-4) + ' décimales';
+			}
+			
+			if(sessionStorage.getItem('list').length-1>localStorage.getItem("high_pi") && number=='Pi'){
+				localStorage.high_pi=sessionStorage.getItem('list').length-1;
+			}
+			
+			if(sessionStorage.getItem('list').length-1>localStorage.getItem("high_rand") && number=='rand'){
+				localStorage.high_rand=sessionStorage.getItem('list').length-1;
+			}
+			
+			if(sessionStorage.getItem('list').length-1>localStorage.getItem("high_e") && number=='e'){
+				localStorage.high_e=sessionStorage.getItem('list').length-1;
+			}
+			
+			if(sessionStorage.getItem('list').length-1>localStorage.getItem("high_phi") && number=='Phi'){
+				localStorage.high_phi=sessionStorage.getItem('list').length-1;
+			}
+			if(sessionStorage.getItem('list').length-1>localStorage.getItem("high_sqrt") && number=='Sqrt(2)'){
+				localStorage.high_sqrt=sessionStorage.getItem('list').length;
+			}
+			
+			sessionStorage.deb=0;
+			nb = sessionStorage.getItem('list').length;
+			sessionStorage.voulu = '';
+			$( '.button' ).animate({ opacity: 0.3 }, 100);
+			window.setTimeout(function(){jouer(0,nb+1,list)},800);
+			
+			
+		}
+		
+	}else{
+		
+		playsound(this.getAttribute('class').split(' ')[1]);
+		
+		$(this).animate({backgroundColor: '#AAffAA'},200);
+		$(this).animate({backgroundColor: '#fafafa'},200);
+		
+		sessionStorage.list += this.getAttribute('class').split(' ')[1];
+		
+		if(sessionStorage.getItem('list').length==sessionStorage.getItem('voulu').length){
+			
+			number = sessionStorage.getItem('number');
+			micro = list[0] + '.' + list[1] + list[2];
+			if(sessionStorage.getItem('voulu').length<4){
+				document.getElementById('txt').innerHTML = number + ', ' + micro + ' environ';
+			}else{
+				document.getElementById('txt').innerHTML = micro + ' + ' + (sessionStorage.getItem('voulu').length-3) + ' décimales';
+			}
+			
+			if(sessionStorage.getItem('voulu').length>localStorage.getItem("high_pi") && number=='Pi'){
+				localStorage.high_pi=sessionStorage.getItem('voulu').length;
+			}
+			
+			if(sessionStorage.getItem('voulu').length>localStorage.getItem("high_rand") && number=='rand'){
+				localStorage.high_rand=sessionStorage.getItem('voulu').length;
+			}
+			
+			if(sessionStorage.getItem('voulu').length>localStorage.getItem("high_e") && number=='e'){
+				localStorage.high_e=sessionStorage.getItem('voulu').length;
+			}
+			
+			if(sessionStorage.getItem('voulu').length>localStorage.getItem("high_phi") && number=='Phi'){
+				localStorage.high_phi=sessionStorage.getItem('voulu').length;
+			}
+			
+			if(sessionStorage.getItem('voulu').length>localStorage.getItem("high_sqrt") && number=='Sqrt(2)'){
+				localStorage.high_sqrt=sessionStorage.getItem('voulu').length;
+			}
+			
+			sessionStorage.voulu='';
+			$( '.button' ).animate({ opacity: 0.3 }, 100);
+			sessionStorage.computer=1;
+			window.setTimeout(function(){jouer(0,sessionStorage.getItem('list').length+1,list)},800);
+		}
+
+	}
+	}
+});
+
+function playsound(nb){
+	try{
+			if(nb == 1){
+				snd1.currentTime = 0;
+				snd1.play();
+			}
+			if(nb == 2){
+				snd2.currentTime = 0;
+				snd2.play();
+			}
+			if(nb == 3){
+				snd3.currentTime = 0;
+				snd3.play();
+			}
+			if(nb == 4){
+				snd4.currentTime = 0;
+				snd4.play();
+			}
+			if(nb == 5){
+				snd5.currentTime = 0;
+				snd5.play();
+			}
+			if(nb == 6){
+				snd6.currentTime = 0;
+				snd6.play();
+			}
+			if(nb == 7){
+				snd7.currentTime = 0;
+				snd7.play();
+			}
+			if(nb == 8){
+				snd8.currentTime = 0;
+				snd8.play();
+			}
+			if(nb == 9){
+				snd9.currentTime = 0;
+				snd9.play();
+			}
+			if(nb == 0){
+				snd0.currentTime = 0;
+				snd0.play();
+			}
+		}catch(err){ var z = 0; }
+}
+
+try{
+var snd1 = new Audio();
+snd1.src="son/1.wav";
+var snd2 =  new Audio();
+snd2.src="son/2.wav";
+var snd3 =  new Audio();
+snd3.src="son/3.wav";
+var snd4 =  new Audio();
+snd4.src="son/4.wav";
+var snd5 = new Audio();
+snd5.src="son/5.wav";
+var snd6 =  new Audio();
+snd6.src="son/6.wav";
+var snd7 =  new Audio();
+snd7.src="son/7.wav";
+var snd8 =  new Audio();
+snd8.src="son/8.wav";
+var snd9 = new Audio();
+snd9.src="son/9.wav";
+var snd0 =  new Audio();
+snd0.src="son/0.wav";
+}catch(err){
+var z = 0;
+}
+
+try{
+	
+	snd1.volume=.0;
+	snd2.volume=.0;
+	snd3.volume=.0;
+	snd4.volume=.0;
+	snd5.volume=.0;
+	snd6.volume=.0;
+	snd7.volume=.0;
+	snd8.volume=.0;
+	snd9.volume=.0;
+	snd0.volume=.0;
+	
+	snd1.play();
+	snd2.play();
+	snd3.play();
+	snd4.play();
+	snd5.play();
+	snd6.play();
+	snd7.play();
+	snd8.play();
+	snd9.play();
+	snd0.play();
+	
+	snd1.volume=1.0;
+	snd2.volume=1.0;
+	snd3.volume=1.0;
+	snd4.volume=1.0;
+	snd5.volume=1.0;
+	snd6.volume=1.0;
+	snd7.volume=1.0;
+	snd8.volume=1.0;
+	snd9.volume=1.0;
+	snd0.volume=1.0;
+	
+  }catch(err){ var z = 0; }
+
+</script>

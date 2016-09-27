@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<head>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="apple-touch-icon" href="apple-touch-icon-57x57-precomposed.png">
+<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76-precomposed.png">
+<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120-precomposed.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152-precomposed.png">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Pi.</title>
+<script src="jquery/jquery-1.4.2.js"></script>
+<script src="jquery/jquery.effects.core.js"></script>
+<script>
+
+function stopScrolling( touchEvent ) { touchEvent.preventDefault(); }
+document.addEventListener( 'touchstart' , stopScrolling , false );
+document.addEventListener( 'touchmove' , stopScrolling , false );
+
+function quit(url,num){
+	
+	sessionStorage.sortie = "1";
+	sessionStorage.number = num;
+	setTimeout(function(){ document.location = url;}, 200);
+	
+}
+
+</script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body id="body" style='text-align:left;'>
+<div id="title"><br>
+<b>Pi.</b></div>
+<div id="header">
+<table style="color:#888;font-size:18px;width:100%;padding:0px 5px 0px 5px">
+<tr>
+<td align="center"><br>
+Vous connaissez<br><p style="display:inline" id="highscore">0</p> decimales de pi !
+</td>
+</tr></table>
+
+</div>
+<div id="menu" align="center"><br>
+<table width='70%'>
+<tr><td>
+</td><td>
+<div id="button" class="button" onmousedown="quit('jeu.html','Pi');" ontouchstart="quit('jeu.html','Pi');">
+<img src="img/Pi.png" class='menuimg'>
+</div>
+<br>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<div id="button" class="button" onmousedown="quit('jeu.html','e');" ontouchstart="quit('jeu.html','e');">
+<img src="img/Exp.png" class='menuimg'>
+</div>
+</td>
+<td>
+<div id="button" class="button" onmousedown="quit('jeu.html','Phi');" ontouchstart="quit('jeu.html','Phi');">
+<img src="img/Phi.png" class='menuimg'>
+</div>
+</td>
+<td>
+<div id="button" class="button" onmousedown="quit('jeu.html','Sqrt(2)');" ontouchstart="quit('jeu.html','√(2)');">
+<img src="img/Sqrt.png" class='menuimg'>
+</div>
+</td>
+</tr>
+<tr>
+<td id='e'>
+
+</td>
+<td id='phi'>
+
+</td>
+<td id='sqrt'>
+
+</td>
+</tr><tr>
+<td>
+
+</td>
+<td>
+
+</td>
+<td>
+<div id="button" class="button" onmousedown="quit('jeu.html','rand');" ontouchstart="quit('jeu.html','rand');">
+<img src="img/Rand.png" class='menuimg'>
+</div>
+</td>
+</tr>
+<tr>
+<td id=''>
+
+</td>
+<td id=''>
+
+</td>
+<td id='rand'>
+
+</td>
+</tr>
+</table>
+<br>
+
+
+
+</div>
+
+
+</body>
+</html>
+<script>
+
+if(!localStorage.getItem("high_pi")){
+	localStorage.high_pi = "0";
+}
+if(!localStorage.getItem("high_rand")){
+	localStorage.high_rand = "0";
+}
+if(!localStorage.getItem("high_e")){
+	localStorage.high_e = "0";
+}
+if(!localStorage.getItem("high_phi")){
+	localStorage.high_phi = "0";
+}
+if(!localStorage.getItem("high_sqrt")){
+	localStorage.high_sqrt = "0";
+}
+document.getElementById('highscore').innerHTML = localStorage.getItem("high_pi").toString();
+
+document.getElementById('e').innerHTML = localStorage.getItem("high_e").toString() + ' décimales';
+document.getElementById('phi').innerHTML = localStorage.getItem("high_phi").toString() + ' décimales';
+document.getElementById('rand').innerHTML = localStorage.getItem("high_rand").toString() + ' décimales';
+document.getElementById('sqrt').innerHTML = localStorage.getItem("high_sqrt").toString() + ' décimales';
+
+</script>

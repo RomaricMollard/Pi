@@ -1,0 +1,36 @@
+CACHE MANIFEST
+
+# Version: 1.0
+
+CACHE:
+index.html
+acc.html
+jeu.html
+style.css
+e.txt
+Sqrt(2).txt
+Pi.txt
+Phi.txt
+img/Exp.png
+img/Phi.png
+img/Pi.png
+img/Rand.png
+img/Sqrt.png
+jquery/jquery-1.4.2.js
+jquery/jquery-1.9.1.js
+jquery/jquery-ui-1.10.4.custom.min.js
+jquery/jquery.effects.core.js
+apple-touch-icon-57x57-precomposed.png
+apple-touch-icon-76x76-precomposed.png
+apple-touch-icon-120x120-precomposed.png
+apple-touch-icon-152x152-precomposed.png
+son/1.wav
+son/2.wav
+son/3.wav
+son/4.wav
+son/5.wav
+son/6.wav
+son/7.wav
+son/8.wav
+son/9.wav
+son/0.wav
