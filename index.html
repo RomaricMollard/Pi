@@ -13,36 +13,151 @@
 <script src="jquery/jquery-1.4.2.js"></script>
 <script src="jquery/jquery.effects.core.js"></script>
 <link rel="stylesheet" href="style.css" />
+
+<!-- Preload pages -->
+<link rel="prefetch" href="(url)">
+<link rel="prefetch" href="(url)">
+<link rel="prefetch" href="(url)">
+
 </head>
 <body align="center">
 
-<iframe src="acc.html" id="viewer" frameborder="0">
-Your device can't display this application.
-</iframe>
+<div id="loader">
+</div>
+
+<div id="viewer" frameborder="0">
+
+</div>
 
 </body>
 </html>
-<script>
+<script type="text/javascript">
 
-width = 0 ;
-height = 0 ;
+//Define
+files = ["e","phi","pi","s2"];
 
-if($(window).width()>$(window).height()){
-	height = $(window).height();
-	width = parseInt($(window).height()/(30/16));
-}else{
-	height = $(window).width()*(30/16);
-	width = $(window).width();
+var numbers = {};
+var me = {}; //Saved data
+var currentNumber = "";
+var loadState = 0;
+
+init();
+
+function init(){
+	//Load data
+	$.each(files, function(index, value){
+		var client = new XMLHttpRequest();
+		client.open('GET', './numbers/'+value+'.n');
+		client['value'] = value;
+		client.onloadend = function() {
+			d = client.responseText;
+			d = d.split("\n");
+			if(d.length>3){ //Do not import if no title and numbers at least
+				name=d[0];
+				img=d[1];
+				digits=d[d.length-2];
+				sentences=[];
+				for(i=2;i<d.length-2;i++){
+					sentences.push(d[i]);
+				}
+				numbers[client.value] = {"name":name,"digits":digits, "img":img,"sentences":sentences};
+			}
+			loadState += 100/files.length; //Update percentage
+			updateLoad();
+		}
+		client.send();
+	});
 }
 
-if(height>540){
-	height = 540;
-	width = 540/(30/16);
+//Loading
+function updateLoad(){
+	$("#loader").html(Math.min(100,loadState)+"%");
+	if(loadState>=100){
+		$("#loader").css({"opacity":"0"});
+		setTimeout(function(){
+			$("#loader").hide();
+		},200);
+	}
 }
 
-$("#viewer").width(width+"px");
-$("#viewer").height(height+"px");
+// Misc
+function generateRandom(){
+	res = "";
+	for(i=0;i<100000;i++){
+		res += ""+parseInt(Math.random()*10);
+	}
+	return res;
+}
 
-localStorage.anim = 1;
+//Save load
+function loadMe(){
+	if(localStorage.saved!=undefined){
+		JSON.parse(localStorage.saved);
+	}
+}
+function saveMe(){
+	localStorage.saved = me;
+}
+
+//Change page
+function returnToMenu(){
+	$("#viewer").load('./start_page.html');
+}
+function play(number){
+	$("#viewer").load('./game.html');
+	currentNumber = number;
+	if(numbers[currentNumber].digits=="RAND"){
+		numbers[currentNumber].digits = generateRandom();
+	}
+	startGame();
+}
+
+//Game
+cursor = 0;
+maxCursor = 0;
+locked = 0;
+function startGame(){
+	cursor = 0;
+	maxCursor = 0;
+	locked = 0;
+}
+
+function digit(n){
+	if(numbers[currentNumber].digits[cursor]==n+""){
+		cursor += 1;
+		maxCursor = Math.max(maxCursor, cursor);
+		if(cursor==maxCursor){
+			me[currentNumber] = maxCursor;
+			saveMe();
+		}
+		$("digit_"+digit).addClass("goodResponse");
+		setTimeout(function(){
+			$("digit_"+digit).removeClass("goodResponse");
+		},20);
+	}else{
+		locked = 1; //Lock during animation
+		showAnimation();
+		$("digit_"+digit).addClass("badResponse");
+		setTimeout(function(){
+			$("digit_"+digit).removeClass("badResponse");
+		},20);
+	}
+}
+function showAnimation(){
+	var animation_cursor = 0;
+	var animator = setInterval(function(){
+		showCorrectDigit(numbers[currentNumber].digits[animation_cursor]);
+		animation_cursor++;
+		if(animation_cursor>maxCursor+1){
+			clearInterval(animator);
+		}
+	},Math.max(30,parseInt(2000/maxCursor)+1));
+}
+function showCorrectDigit(digit){
+	$("digit_"+digit).addClass("showCorrect");
+	setTimeout(function(){
+		$("digit_"+digit).removeClass("showCorrect");
+	},20);
+}
 
 </script>

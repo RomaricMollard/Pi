@@ -12,7 +12,17 @@
   margin:0px 0px 0px 0px;
   padding: 0px;
   }
-    
+
+  div#loader {
+    transition: all 0.2s;
+    background: #FFF;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    font-size: 13px;
+    color: #000;
+  }
+
   div#button {
   	margin-left: auto ;
   	margin-right: auto ;
@@ -26,26 +36,26 @@
   	font-size:25px;
   	color: #333;
   }
-  
+
   div#button:hover {
   	background: #eee;
   }
-  
+
   div#button:active {
   	background: #ddd;
   }
-  
+
   .menuimg {
   	height: 35px;
   }
-  
+
   td {
   	width: 60px;
   	height: 60px;
   	text-align: center;
   	font-size: 15px;
   }
-  
+
   div#title {
   	text-align: center;
   	font-size: 30px;
