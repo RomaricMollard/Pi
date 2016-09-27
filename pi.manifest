@@ -1,21 +1,22 @@
 CACHE MANIFEST
-
+dsfqdfqfsfdsq
 # Version: 1.0
 
 CACHE:
-index.html
-acc.html
-jeu.html
-style.css
-e.txt
-Sqrt(2).txt
-Pi.txt
-Phi.txt
-img/Exp.png
-img/Phi.png
-img/Pi.png
-img/Rand.png
-img/Sqrt.png
+#index.html
+#start_page.html
+#game.html
+#style.css
+numbers/e.n
+numbers/s2.n
+numbers/pi.n
+numbers/phi.n
+numbers/rand.n
+img/e.png
+img/phi.png
+img/pi.png
+img/rand.png
+img/s2.png
 jquery/jquery-1.4.2.js
 jquery/jquery-1.9.1.js
 jquery/jquery-ui-1.10.4.custom.min.js

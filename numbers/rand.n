@@ -1,3 +1,4 @@
 Random
 ./img/rand.png
+100
 RAND

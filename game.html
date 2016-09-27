@@ -1,0 +1,78 @@
+<div id="page_contener" style="display: inline-block;
+    max-width: 260px;
+    font-size: 0px;
+    text-align: center;
+    position: absolute;
+    width: 260px;
+    height:350px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 0px;
+    padding-top: 40px;
+    top: 0px;">
+
+<div style="height: 20px; line-height: 20px; border-bottom: 1px solid #DDD; margin-bottom: 10px;">
+<div id="sentence" style="font-size: 12px; color: #000;"></div>
+<div id="nfo" style="font-size: 12px; color: #000;display:none;"></div>
+</div>
+
+<div id="digits">
+</div>
+
+</div>
+
+<div id="menu_digit_model" style="display: none;">
+
+  <div style="width:33%; box-sizing: border-box; display: inline-block; margin-top: 10px;text-align: center;">
+    <div id="digit_{{value}}" value='{{value}}' class="digit">
+      {{value}}
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+
+  function update_nfo(){
+    data = "";
+    if(cursor <= 1){
+      data = "It start with "+numbers[currentNumber].digits.substr(0,3)+"...";
+    }else{
+      if(isfirsttry){
+        data = "Already <b>"+cursor+"</b> One Shot over "+me[currentNumber].oneshotrecord+" !";
+      }else{
+        data = "Already <b>"+cursor+"</b> digits over "+me[currentNumber].record+" !";
+      }
+    }
+    $("#nfo").html(data);
+  }
+
+  function triggers(){
+    $('.digit').bind("touchstart click",function(){
+      digit($(this).attr('value'));
+      update_nfo();
+      return false
+    });
+  }
+
+  function generate(){
+    $("#sentence").html(randomSentence());
+    setTimeout(function(){
+      $("#sentence").hide();
+      $("#nfo").show();
+    },1600);
+    //Generate main buttons
+    for(i=0;i<10;i++){
+      data = {}
+      data.value = i;
+      $("#digits").prepend(compileModel("#menu_digit_model",data));
+
+      first = 0;
+    }
+    triggers();
+    update_nfo();
+  }
+  generate();
+
+</script>

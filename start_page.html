@@ -1,0 +1,38 @@
+
+<div id="page_contener" style="display: inline-block;max-width: 300px;font-size: 0px;text-align:left;">
+
+</div>
+
+<div id="menu_numbertolearn_model" style="display: none;">
+
+  <div style="width:{{width}}%; box-sizing: border-box; display: inline-block; margin-top: 20px;text-align: center;">
+    <div class="button" onmousedown="play('{{basename}}');" ontouchstart="play('{{basename}}');">
+      <img src="{{img}}" class="menuimg">
+    </div>
+    <div style="font-size: 12px;margin-top: 5px;">
+      <b>{{myrecord}}</b> maximum<br>
+      <b>{{myoneshotrecord}}</b> one shot
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+
+  function generate(){
+    first = 1; //Making "Pi" first
+    //Generate main buttons
+    $.each(numbersSorted, function(i,e){
+      data = numbers[e];
+      data.basename = e;
+      data.width = (first)?100:33
+      data.myrecord = me[e].record;
+      data.myoneshotrecord = me[e].oneshotrecord;
+      $("#page_contener").append(compileModel("#menu_numbertolearn_model",data));
+
+      first = 0;
+    });
+  }
+  generate();
+
+</script>
