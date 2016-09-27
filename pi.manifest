@@ -1,12 +1,12 @@
 CACHE MANIFEST
 dsfqdfqfsfdsq
-# Version: 1.0
+# Version: 2.1
 
 CACHE:
-#index.html
-#start_page.html
-#game.html
-#style.css
+index.html
+start_page.html
+game.html
+style.css
 numbers/e.n
 numbers/s2.n
 numbers/pi.n

@@ -63,9 +63,10 @@
       $("#nfo").show();
     },1600);
     //Generate main buttons
+    d = [0,3,2,1,6,5,4,9,8,7]
     for(i=0;i<10;i++){
       data = {}
-      data.value = i;
+      data.value = d[i];
       $("#digits").prepend(compileModel("#menu_digit_model",data));
 
       first = 0;
