@@ -172,8 +172,17 @@ function digit(n){
 		setTimeout(function(){
 			$("#digit_"+n).removeClass("goodResponse");
 		},20);
+		console.log(currentNumber);
+		if(currentNumber=="rand" && cursor==maxCursor){ //Special for random
+			maxCursor += 1;
+			cursor = 0;
+			locked = 1;
+			showAnimation();
+		}
 	}else{
-		isfirsttry = 0;
+		if(cursor>1){
+			isfirsttry = 0;
+		}
 		locked = 1; //Lock during animation
 		showAnimation();
 		$("#digit_"+n).addClass("badResponse");
