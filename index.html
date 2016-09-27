@@ -159,6 +159,10 @@ function digit(n){
 		return;
 	}
 	if(numbers[currentNumber].digits[cursor]==n+""){
+		pushed = 0;
+		if(cursor==maxCursor){
+			pushed = 1;
+		}
 		cursor += 1;
 		maxCursor = Math.max(maxCursor, cursor);
 		if(cursor==maxCursor){
@@ -172,9 +176,7 @@ function digit(n){
 		setTimeout(function(){
 			$("#digit_"+n).removeClass("goodResponse");
 		},20);
-		console.log(currentNumber);
-		if(currentNumber=="rand" && cursor==maxCursor){ //Special for random
-			maxCursor += 1;
+		if(currentNumber=="rand" && pushed){ //Special for random
 			cursor = 0;
 			locked = 1;
 			showAnimation();
