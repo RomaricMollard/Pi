@@ -35,7 +35,7 @@
 <script type="text/javascript">
 
 //Define
-files = ["e","phi","pi","s2","easy","rand"];
+files = ["e","phi","pi","s2","easy","rand","geek"];
 
 var numbers = {};
 var numbersSorted = [];
@@ -155,7 +155,7 @@ function startGame(){
 }
 
 function digit(n){
-	if(locked){
+	if(locked || cursor>=numbers[currentNumber].digits.length){
 		return;
 	}
 	if(numbers[currentNumber].digits[cursor]==n+""){
