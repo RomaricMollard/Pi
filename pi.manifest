@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# Version: 2.0.31
+# Version: 2.0.36
 
 CACHE:
 index.html
@@ -12,11 +12,13 @@ numbers/s2.n
 numbers/pi.n
 numbers/phi.n
 numbers/rand.n
+numbers/easy.n
 img/e.png
 img/phi.png
 img/pi.png
 img/rand.png
 img/s2.png
+img/easy.png
 jquery/jquery-1.4.2.js
 jquery/jquery-1.9.1.js
 jquery/jquery-ui-1.10.4.custom.min.js

@@ -35,7 +35,7 @@
 <script type="text/javascript">
 
 //Define
-files = ["e","phi","pi","s2","rand"];
+files = ["e","phi","pi","s2","easy","rand"];
 
 var numbers = {};
 var numbersSorted = [];
@@ -182,7 +182,7 @@ function digit(n){
 			showAnimation();
 		}
 	}else{
-		if(cursor>1){
+		if(cursor<=maxCursor){
 			isfirsttry = 0;
 		}
 		locked = 1; //Lock during animation
