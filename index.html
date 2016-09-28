@@ -33,7 +33,7 @@
   <div id="loader_bar"></div>
 </div>
 
-<div onmousedown="returnToMenu()" ontouchstart="returnToMenu()" style="font-weight: 100;line-height: 45px; border-bottom: 1px solid #DDD; font-size: 30px; color: #000;">
+<div id="returntomenu" style="font-weight: 100;line-height: 45px; border-bottom: 1px solid #DDD; font-size: 30px; color: #000;">
   Pi.
 </div>
 <div id="viewer" frameborder="0">
@@ -145,7 +145,10 @@ function returnToMenu(){
 	$("#viewer").load('./start_page.html');
 }
 function play(number){
-	$("#viewer").load('./game.html');
+  $("#viewer").html("");
+  setTimeout(function(){
+	   $("#viewer").load('./game.html');
+  },200);
 	currentNumber = number;
 	if(numbers[currentNumber].digits=="RAND"){
 		numbers[currentNumber].digits = generateRandom();
@@ -233,8 +236,15 @@ function showCorrectDigit(digit){
 	},20);
 }
 function randomSentence(){
-	r = parseInt(Math.random()*numbers[currentNumber].sentences.length);
-	return numbers[currentNumber].sentences[r];
+	r = parseInt(Math.random()*(numbers[currentNumber].sentences.length+1));
+  if(r==0){
+    return numbers[currentNumber].name;
+  }
+	return numbers[currentNumber].sentences[r-1];
 }
+
+$("#returntomenu").on("click touchstart",function(){
+  returnToMenu();
+});
 
 </script>
